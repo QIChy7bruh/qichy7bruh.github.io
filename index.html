@@ -5,48 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>寇熙崴的个人主页</title>
     <style>
-          /* 其他样式保持不变... */
-
-        /* 复制提示样式 */
-        .copy-tooltip {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 0.9em;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1000;
-            pointer-events: none; /* 防止干扰点击 */
-        }
-
-        .copy-tooltip.show {
-            opacity: 1;
-        }
+        /* 基础样式 */
         :root {
             --bg-color: #f5f5f5;
             --text-color: #333;
             --card-bg: #fff;
-            --shadow-color: rgba(0,0,0,0.1);
-            --link-color: #00a1d6;
+            --shadow-color: rgba(0, 0, 0, 0.1);
             --primary-color: #e74c3c;
             --secondary-color: #3498db;
             --accent-color: #f39c12;
+            --gradient-start: #e74c3c;
+            --gradient-end: #f39c12;
         }
 
         [data-theme="dark"] {
             --bg-color: #1a1a1a;
             --text-color: #f5f5f5;
             --card-bg: #2d2d2d;
-            --shadow-color: rgba(0,0,0,0.3);
-            --link-color: #00c1de;
+            --shadow-color: rgba(0, 0, 0, 0.3);
             --primary-color: #e74c3c;
             --secondary-color: #3498db;
             --accent-color: #f39c12;
+            --gradient-start: #3498db;
+            --gradient-end: #00c1de;
         }
 
         * {
@@ -54,24 +35,26 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', 'Source Han Sans CN', sans-serif;
-            transition: background-color 0.3s, color 0.2s;
+            transition: background-color 0.3s, color 0.2s, transform 0.3s, box-shadow 0.3s;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            padding: 20px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 40px;
             background: var(--card-bg);
-            border-radius: 15px;
+            border-radius: 20px;
             box-shadow: 0 10px 30px var(--shadow-color);
         }
 
+        /* 头部区域 */
         .profile-header {
             text-align: center;
             margin-bottom: 50px;
@@ -84,28 +67,51 @@
             margin-bottom: 20px;
             border: 4px solid var(--primary-color);
             box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
             font-size: 2.5em;
             color: var(--primary-color);
             margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .tagline {
             color: var(--secondary-color);
             font-size: 1.2em;
+            font-weight: 500;
         }
 
+        /* 内容区域 */
         .content-section {
             background: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
+            padding: 30px;
+            border-radius: 15px;
             box-shadow: 0 4px 12px var(--shadow-color);
             margin-bottom: 30px;
             color: var(--text-color);
         }
 
+        .content-section h2 {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .content-section p {
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        /* 技能面板 */
         .skills-section {
             margin: 100px 0;
             opacity: 0;
@@ -128,7 +134,7 @@
         .hex-item {
             position: relative;
             background: var(--card-bg);
-            padding: 40px;
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 30px var(--shadow-color);
             text-align: center;
@@ -144,6 +150,7 @@
         .hex-item:hover {
             transform: scale(1.05);
             z-index: 2;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
         .skill-level {
@@ -152,6 +159,9 @@
             margin-top: 15px;
             position: relative;
             display: inline-block;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .skill-level::after {
@@ -171,6 +181,7 @@
         .level-b { color: var(--accent-color); }
         .level-c { color: var(--secondary-color); }
 
+        /* 社交媒体链接 */
         .social-links {
             display: flex;
             justify-content: center;
@@ -213,6 +224,7 @@
             color: white;
         }
 
+        /* 黑暗模式切换按钮 */
         .theme-toggle {
             position: fixed;
             right: 20px;
@@ -229,8 +241,10 @@
 
         .theme-toggle:hover {
             background: var(--primary-color);
+            color: white;
         }
 
+        /* 页脚区域 */
         .footer-content {
             text-align: center;
             margin: 100px 0;
@@ -254,7 +268,7 @@
             display: inline-flex;
             align-items: center;
             padding: 12px 24px;
-            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             color: white;
             border-radius: 25px;
             text-decoration: none;
@@ -268,6 +282,28 @@
             transform: translateY(-2px);
         }
 
+        /* 复制提示 */
+        .copy-tooltip {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .copy-tooltip.show {
+            opacity: 1;
+        }
+
+        /* 响应式设计 */
         @media (max-width: 992px) {
             .hex-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -282,16 +318,17 @@
             .hex-grid {
                 grid-template-columns: 1fr;
             }
+            .container {
+                padding: 20px;
+            }
+            .content-section {
+                padding: 20px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <!-- 内容保持不变... -->
-        <div class="copy-tooltip" id="copy-tooltip">已复制QQ号</div>
-    </div>
-
     <div class="container">
         <header class="profile-header">
             <img src="ico.png" alt="寇熙崴" class="avatar">
@@ -299,18 +336,16 @@
             <p class="tagline">热爱分享与创造的数字内容创作者</p>
         </header>
 
-        <div class="grid-container">
-            <div class="content-section">
-                <h2>基本信息</h2>
-                <p>📍 所在地：黑龙江</p>
-                <p>🎓 领域：开发</p>
-                <p>🌟 专长：编写代码，制作动画，minecraft，科学上网，PS绘画，编写乐曲</p>
-            </div>
+        <div class="content-section">
+            <h2>基本信息</h2>
+            <p>📍 所在地：黑龙江</p>
+            <p>🎓 领域：开发</p>
+            <p>🌟 专长：编写代码，制作动画，minecraft，科学上网，PS绘画，编写乐曲</p>
+        </div>
 
-            <div class="content-section">
-                <h2>个人简介</h2>
-                <p>寇熙崴是一位充满热情的创意开发者，INTJ人格，喜欢用双手创造各种有趣的文件</p>
-            </div>
+        <div class="content-section">
+            <h2>个人简介</h2>
+            <p>寇熙崴是一位充满热情的创意开发者，INTJ人格，喜欢用双手创造各种有趣的文件。</p>
         </div>
 
         <div class="skills-section">
@@ -321,16 +356,16 @@
                     <div class="skill-level level-a">A</div>
                 </div>
                 <div class="hex-item">
+                    <h3>MC</h3>
+                    <div class="skill-level level-b">B</div>
+                </div>
+                <div class="hex-item">
                     <h3>动画</h3>
                     <div class="skill-level level-a">A</div>
                 </div>
                 <div class="hex-item">
-                    <h3>MC</h3>
-                    <div class="skill-level level-a">A</div>
-                </div>
-                <div class="hex-item">
                     <h3>科学上网</h3>
-                    <div class="skill-level level-a">A</div>
+                    <div class="skill-level level-b">B</div>
                 </div>
                 <div class="hex-item">
                     <h3>绘画</h3>
@@ -338,7 +373,7 @@
                 </div>
                 <div class="hex-item">
                     <h3>编曲</h3>
-                    <div class="skill-level level-c">C</div>
+                    <div class="skill-level level-b">B</div>
                 </div>
             </div>
         </div>
@@ -370,35 +405,26 @@
     </div>
 
     <script>
-       
-
-        function showTooltip() {
-            tooltip.classList.add('show');
-            setTimeout(() => {
-                tooltip.classList.remove('show');
-            }, 2000); // 2秒后隐藏提示
-        }
-
         // 滚动检测逻辑
         const skillsSection = document.querySelector('.skills-section');
         const footerContent = document.querySelector('.footer-content');
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                entry.target.classList.toggle('active', entry.isIntersecting)
-            })
-        }, { threshold: 0.25 })
+                entry.target.classList.toggle('active', entry.isIntersecting);
+            });
+        }, { threshold: 0.25 });
 
-        observer.observe(skillsSection)
-        observer.observe(footerContent)
+        observer.observe(skillsSection);
+        observer.observe(footerContent);
 
         // 动态延迟加载
         document.querySelectorAll('.hex-item').forEach((item, index) => {
-            item.style.transitionDelay = `${index * 0.1}s`
-        })
+            item.style.transitionDelay = `${index * 0.1}s`;
+        });
 
-  // 修复QQ号复制功能
-  const qqLink = document.getElementById('qq-link');
+        // 修复QQ号复制功能
+        const qqLink = document.getElementById('qq-link');
         const tooltip = document.getElementById('copy-tooltip');
 
         qqLink.addEventListener('click', (e) => {
@@ -441,46 +467,6 @@
             }, 2000); // 2秒后隐藏提示
         }
 
-        qqLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            const qqNumber = '2414624920';
-
-            // 使用现代剪贴板API
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(qqNumber).then(() => {
-                    showTooltip();
-                }).catch(() => {
-                    fallbackCopy(qqNumber);
-                });
-            } else {
-                fallbackCopy(qqNumber);
-            }
-        });
-
-        function fallbackCopy(text) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed'; // 避免滚动到页面底部
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand('copy');
-                showTooltip();
-            } catch (err) {
-                console.error('复制失败:', err);
-                alert('复制失败，请手动复制QQ号：2414624920');
-            } finally {
-                document.body.removeChild(textarea);
-            }
-        }
-
-        function showTooltip() {
-            tooltip.classList.add('show');
-            setTimeout(() => {
-                tooltip.classList.remove('show');
-            }, 2000);
-        }
-
         // 播放音乐功能
         const musicButton = document.getElementById('music-button');
         let audio = null;
@@ -499,7 +485,7 @@
                 musicButton.innerHTML = '<i class="fas fa-music"></i> 播放音乐';
             }
         });
-        
+
         // 黑暗模式切换逻辑
         const themeToggle = document.createElement('button');
         themeToggle.id = 'theme-toggle';
@@ -527,6 +513,5 @@
             }
         });
     </script>
-</body>
 </body>
 </html>
