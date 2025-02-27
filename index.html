@@ -5,12 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>寇熙崴的个人主页</title>
     <style>
-  :root {
+          /* 其他样式保持不变... */
+
+        /* 复制提示样式 */
+        .copy-tooltip {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+            pointer-events: none; /* 防止干扰点击 */
+        }
+
+        .copy-tooltip.show {
+            opacity: 1;
+        }
+        :root {
             --bg-color: #f5f5f5;
             --text-color: #333;
             --card-bg: #fff;
             --shadow-color: rgba(0,0,0,0.1);
             --link-color: #00a1d6;
+            --primary-color: #e74c3c;
+            --secondary-color: #3498db;
+            --accent-color: #f39c12;
         }
 
         [data-theme="dark"] {
@@ -19,6 +44,9 @@
             --card-bg: #2d2d2d;
             --shadow-color: rgba(0,0,0,0.3);
             --link-color: #00c1de;
+            --primary-color: #e74c3c;
+            --secondary-color: #3498db;
+            --accent-color: #f39c12;
         }
 
         * {
@@ -44,6 +72,31 @@
             box-shadow: 0 10px 30px var(--shadow-color);
         }
 
+        .profile-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: var(--secondary-color);
+            font-size: 1.2em;
+        }
+
         .content-section {
             background: var(--card-bg);
             padding: 40px;
@@ -53,54 +106,6 @@
             color: var(--text-color);
         }
 
-        .hex-item {
-            background: var(--card-bg);
-            box-shadow: 0 10px 30px var(--shadow-color);
-            color: var(--text-color);
-        }
-
-        .social-link {
-            color: var(--text-color);
-        }
-
-        .theme-toggle {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            padding: 10px 20px;
-            background: var(--card-bg);
-            color: var(--text-color);
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px var(--shadow-color);
-            z-index: 1000;
-        }
-
-        .theme-toggle:hover {
-            background: #555;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Source Han Sans CN', sans-serif;
-        }
-
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        /* 新增技能面板样式 */
         .skills-section {
             margin: 100px 0;
             opacity: 0;
@@ -122,10 +127,10 @@
 
         .hex-item {
             position: relative;
-            background: #fff;
+            background: var(--card-bg);
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px var(--shadow-color);
             text-align: center;
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             transition: all 0.4s;
@@ -133,6 +138,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            color: var(--text-color);
         }
 
         .hex-item:hover {
@@ -161,11 +167,10 @@
             transform: translate(-50%, -50%);
         }
 
-        .level-a { color: #e74c3c; }
-        .level-b { color: #f39c12; }
-        .level-c { color: #3498db; }
+        .level-a { color: var(--primary-color); }
+        .level-b { color: var(--accent-color); }
+        .level-c { color: var(--secondary-color); }
 
-        /* 新增社交媒体链接样式 */
         .social-links {
             display: flex;
             justify-content: center;
@@ -184,69 +189,48 @@
             font-weight: 500;
             min-width: 140px;
             justify-content: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .social-link i {
-            margin-right: 8px;
-            font-size: 1.2em;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            color: var(--text-color);
         }
 
         .social-link:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 12px var(--shadow-color);
         }
 
-        /* QQ按钮样式 */
         .qq-link {
             background: linear-gradient(135deg, #12b7f5, #0084ff);
             color: white;
         }
 
-        .qq-link:hover {
-            background: linear-gradient(135deg, #0084ff, #12b7f5);
-        }
-
-        /* GitHub按钮样式 */
         .github-link {
             background: linear-gradient(135deg, #24292e, #2d3338);
             color: white;
         }
 
-        .github-link:hover {
-            background: linear-gradient(135deg, #2d3338, #24292e);
-        }
-
-        /* B站按钮样式调整 */
         .bilibili-link {
             background: linear-gradient(135deg, #00a1d6, #00c1de);
-        }
-
-        .bilibili-link:hover {
-            background: linear-gradient(135deg, #00c1de, #00a1d6);
-        }
-
-        /* 复制提示样式 */
-        .copy-tooltip {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.8);
             color: white;
-            padding: 12px 24px;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            padding: 10px 20px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: none;
             border-radius: 25px;
-            font-size: 0.9em;
-            opacity: 0;
-            transition: opacity 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 12px var(--shadow-color);
             z-index: 1000;
         }
 
-        .copy-tooltip.show {
-            opacity: 1;
+        .theme-toggle:hover {
+            background: var(--primary-color);
         }
 
-        /* 新增下滑内容样式 */
         .footer-content {
             text-align: center;
             margin: 100px 0;
@@ -262,7 +246,7 @@
 
         .footer-text {
             font-size: 1.5em;
-            color: #2c3e50;
+            color: var(--primary-color);
             margin-bottom: 30px;
         }
 
@@ -270,7 +254,7 @@
             display: inline-flex;
             align-items: center;
             padding: 12px 24px;
-            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: white;
             border-radius: 25px;
             text-decoration: none;
@@ -282,10 +266,6 @@
 
         .music-button:hover {
             transform: translateY(-2px);
-        }
-
-        .music-button i {
-            margin-right: 8px;
         }
 
         @media (max-width: 992px) {
@@ -308,6 +288,11 @@
 </head>
 <body>
     <div class="container">
+        <!-- 内容保持不变... -->
+        <div class="copy-tooltip" id="copy-tooltip">已复制QQ号</div>
+    </div>
+
+    <div class="container">
         <header class="profile-header">
             <img src="ico.png" alt="寇熙崴" class="avatar">
             <h1>寇熙崴</h1>
@@ -328,7 +313,6 @@
             </div>
         </div>
 
-        <!-- 新增技能面板 -->
         <div class="skills-section">
             <h2 style="text-align:center; margin-bottom:50px;">核心技能</h2>
             <div class="hex-grid">
@@ -359,7 +343,6 @@
             </div>
         </div>
 
-        <!-- 新增下滑内容 -->
         <div class="footer-content">
             <div class="footer-text">寇熙崴的网站：2025</div>
             <button class="music-button" id="music-button">
@@ -383,11 +366,19 @@
             </a>
         </div>
 
-        <!-- 复制提示 -->
         <div class="copy-tooltip" id="copy-tooltip">已复制QQ号</div>
     </div>
 
     <script>
+       
+
+        function showTooltip() {
+            tooltip.classList.add('show');
+            setTimeout(() => {
+                tooltip.classList.remove('show');
+            }, 2000); // 2秒后隐藏提示
+        }
+
         // 滚动检测逻辑
         const skillsSection = document.querySelector('.skills-section');
         const footerContent = document.querySelector('.footer-content');
@@ -406,35 +397,89 @@
             item.style.transitionDelay = `${index * 0.1}s`
         })
 
-        // QQ号复制功能
-        const qqLink = document.getElementById('qq-link');
+  // 修复QQ号复制功能
+  const qqLink = document.getElementById('qq-link');
         const tooltip = document.getElementById('copy-tooltip');
 
         qqLink.addEventListener('click', (e) => {
             e.preventDefault();
             const qqNumber = '2414624920';
-            
+
             // 使用现代剪贴板API
-            navigator.clipboard.writeText(qqNumber).then(() => {
-                tooltip.classList.add('show');
-                setTimeout(() => {
-                    tooltip.classList.remove('show');
-                }, 2000);
-            }).catch(() => {
-                // 兼容旧版浏览器
-                const textarea = document.createElement('textarea');
-                textarea.value = qqNumber;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                
-                tooltip.classList.add('show');
-                setTimeout(() => {
-                    tooltip.classList.remove('show');
-                }, 2000);
-            });
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(qqNumber).then(() => {
+                    showTooltip();
+                }).catch(() => {
+                    fallbackCopy(qqNumber);
+                });
+            } else {
+                fallbackCopy(qqNumber);
+            }
         });
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed'; // 避免滚动到页面底部
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showTooltip();
+            } catch (err) {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动复制QQ号：2414624920');
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        function showTooltip() {
+            tooltip.classList.add('show');
+            setTimeout(() => {
+                tooltip.classList.remove('show');
+            }, 2000); // 2秒后隐藏提示
+        }
+
+        qqLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const qqNumber = '2414624920';
+
+            // 使用现代剪贴板API
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(qqNumber).then(() => {
+                    showTooltip();
+                }).catch(() => {
+                    fallbackCopy(qqNumber);
+                });
+            } else {
+                fallbackCopy(qqNumber);
+            }
+        });
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed'; // 避免滚动到页面底部
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showTooltip();
+            } catch (err) {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动复制QQ号：2414624920');
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        function showTooltip() {
+            tooltip.classList.add('show');
+            setTimeout(() => {
+                tooltip.classList.remove('show');
+            }, 2000);
+        }
 
         // 播放音乐功能
         const musicButton = document.getElementById('music-button');
@@ -482,5 +527,6 @@
             }
         });
     </script>
+</body>
 </body>
 </html>
